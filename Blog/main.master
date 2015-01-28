@@ -1,0 +1,71 @@
+﻿<%@ Master Language="C#"  Inherits="Leafing.Web.Mvc.MasterPageBase" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<script runat="server">
+    private readonly Category _root = Category.FindById(1);
+
+    private void WriteLink(string link)
+    {
+        Response.Write("            ");
+        Response.Write(link);
+        Response.Write(" | \r\n");
+    }
+</script>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link href="~/styles/scaffolding.css" type="text/css" rel="Stylesheet" />
+    <link href="~/styles/blog.css" type="text/css" rel="Stylesheet" />
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="banner">
+    </div>
+    <div class="header">
+        <div id="navigator">
+            <%= LinkTo<ArticleController>().Title("首页") %> | 
+            <%
+                foreach (var category in _root.Children)
+                {
+                    WriteLink(LinkTo<CategoryController>(p => p.Show(category.UrlName, null)).Title(category.Name));
+                }
+            %>
+        </div>
+        <div id="oprator">
+            <%
+                var u = this.GetLoginUser();
+                if(u == null)
+                {
+                    WriteLink(LinkTo<UserController>(p => p.Register()).Title("注册"));
+                    WriteLink(LinkTo<UserController>(p => p.Login()).Title("登录"));
+                }
+                else
+                {
+                    Response.Write("            [");
+                    Response.Write(LinkTo<UserController>(p => p.Profile()).Title(u.ShowName.ToHtml()));
+                    Response.Write("] | \r\n");
+                    if (u.Role == UserRole.Administrator)
+                    {
+                        WriteLink(LinkTo<ArticleController>(p => p.New()).Title("新文章"));
+                        WriteLink(LinkTo <ManageController>(p => p.List()).Title("管理"));
+                    }
+                    WriteLink(LinkTo <UserController>(p => p.Logout(null)).Title("退出"));
+                }
+            %>
+            <%= LinkTo<CommentController>(p => p.List(null)).Title("评论") %> | 
+            <%= LinkTo<RssController>(p => p.Article()).Title("订阅") %> | 
+            <%= LinkTo<ArticleController>(p => p.Show("about")).Title("关于") %>
+        </div>
+    </div>
+    <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+    <div class="footer">
+        版权所有 &copy; <a href="http://llf.hanzify.org"><%= Blog.Biz.BlogSettings.BlogName %></a> 1999～<%=DateTime.Now.Year%> 所有权力保留<br />
+        Powered By <a href="http://dbentry.codeplex.com/">DbEntry.Net</a> :)
+    </div>
+</body>
+</html>

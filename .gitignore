@@ -1,0 +1,11 @@
+/Blog/App_Data/blog.db
+/Blog/obj
+/Blog/bin
+/Blog.Biz/obj
+/Blog.Biz/bin
+/Blog.UnitTests/bin
+/Blog.UnitTests/obj
+/Studio
+/TestResults
+/*.suo
+/Blog/*.log
