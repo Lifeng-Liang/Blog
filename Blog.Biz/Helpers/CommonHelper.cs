@@ -17,6 +17,8 @@ namespace Blog.Biz.Helpers
 {
     public static class CommonHelper
     {
+        public static readonly string Copyright = string.Format(BlogSettings.CopyrightTemplate, Date.Now.Year);
+
         private static readonly SHA512 Hash = SHA512.Create();
 
         public static string GetHashedPassword(string password)

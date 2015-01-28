@@ -51,7 +51,7 @@
                     if (u.Role == UserRole.Administrator)
                     {
                         WriteLink(LinkTo<ArticleController>(p => p.New()).Title("新文章"));
-                        WriteLink(LinkTo <ManageController>(p => p.List()).Title("管理"));
+                        WriteLink(LinkTo<ManageController>(p => p.List()).Title("管理"));
                     }
                     WriteLink(LinkTo <UserController>(p => p.Logout(null)).Title("退出"));
                 }
@@ -64,7 +64,7 @@
     <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
     </asp:ContentPlaceHolder>
     <div class="footer">
-        版权所有 &copy; <a href="http://llf.hanzify.org"><%= Blog.Biz.BlogSettings.BlogName %></a> 1999～<%=DateTime.Now.Year%> 所有权力保留<br />
+        版权所有 &copy; <a href="http://llf.hanzify.org"><%= Blog.Biz.BlogSettings.BlogName %></a> <%= Blog.Biz.Helpers.CommonHelper.Copyright %><br />
         Powered By <a href="http://dbentry.codeplex.com/">DbEntry.Net</a> :)
     </div>
 </body>

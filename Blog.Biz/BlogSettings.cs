@@ -24,6 +24,8 @@
         public static readonly string EmailUsername = "";
         public static readonly string EmailPassword = "";
 
+        public static readonly string CopyrightTemplate = "{0}";
+
         static BlogSettings()
         {
             typeof(BlogSettings).Initialize();
