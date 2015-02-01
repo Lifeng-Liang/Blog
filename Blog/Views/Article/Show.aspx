@@ -25,6 +25,10 @@
 </script>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <% if(Item.Format == ArticleFormat.Markdown) { %>
+    <link href="<%= Blog.Biz.BlogSettings.SiteBase %>/prettify/my.css" type="text/css" rel="stylesheet" />
+    <script src="<%= Blog.Biz.BlogSettings.SiteBase %>/prettify/prettify.js" type="text/javascript"></script>
+    <% } %>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -90,5 +94,8 @@
 <p style="color: Green"><%= Flash.Notice %></p><p style="color: Red"><%= Flash.Warning %></p>
 
 </div>
+<% if(Item.Format == ArticleFormat.Markdown) { %>
+<script type="text/javascript">prettyPrint();</script>
+<% } %>
 
 </asp:Content>

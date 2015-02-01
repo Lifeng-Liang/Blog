@@ -36,7 +36,8 @@ namespace Blog
                     Role = UserRole.Administrator, SessionId = Guid.NewGuid().ToString() };
                 user.Save();
 
-                var readme = StringHelper.ReadToEnd(Path.Combine(SystemHelper.BaseDirectory, "README.md"));
+                var readmeFile = Path.Combine(SystemHelper.BaseDirectory, "../README.md");
+                var readme = File.Exists(readmeFile) ? StringHelper.ReadToEnd(readmeFile) : "没有找到 README.md";
                 var s = new Statistic();
                 var article = new Article
                 {

@@ -14,7 +14,7 @@ MyBlog
 
 页面部分，为了在手机上显示正常，在电脑上显示的反而不协调，也不美观，有时间的话，下一步准备先改一下这里。
 
-其中的 ubb 中 code 部分，是使用 [SyntaxHighlighter](http://alexgorbatchev.com/) 实现的。Markdown 的 code 部分，准备使用 [prettify](https://code.google.com/p/google-code-prettify/)，如果好用的话，ubb 的也改成这个。
+其中的 ubb 中 code 部分，是使用 [SyntaxHighlighter](http://alexgorbatchev.com/) 实现的。Markdown 的 code 部分，使用 [prettify](https://code.google.com/p/google-code-prettify/)，ubb 也准备改成这个。
 
 目前，它还只是一个单人使用的 blog，普通的注册用户，只是在发评论和搜索的时候有一些方便，只有管理员才能发表文章。
 
@@ -51,3 +51,18 @@ rss 生成部分，站点部分，在页面里是硬编码为 http://llf.hanzify
 *   Articles 表因为某些原因，改成了软删除模式，但是 Comments 和 Statistics 还没有改，会造成某些情况下出错。
 *   Controllers 里绑定值，因为历史原因，只是单个值绑定，因为时间原因，这次仍然保留了这个做法。
 *   这次升级，取消了Session，但是还没来得及修改数据库，所以登录时选不选【Remember Me】都是浏览器关闭即失效。
+
+代码
+----------
+
+Markdown 的代码部分，修改了 MarkdownSharp 的源代码，增加了配置项 CodeClass，以便使用 prettify。css 修改自 sunburst。下面是个例子。
+
+	/* Fibonacci */
+	function fib(x) {
+		if(x <= 0) { throw new Error("Argument Error"); }
+		if(x <= 2) { return 1; }
+		return fib(x-2)+fib(x-1);
+	}
+
+行内代码效果 `console.log(fib(5));` 也不错。
+	

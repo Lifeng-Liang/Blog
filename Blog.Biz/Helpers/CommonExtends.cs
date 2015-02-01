@@ -70,7 +70,9 @@ public static class CommonExtends
 
     public static string MarkdownEncode(this string s)
     {
-        return new MarkdownSharp.Markdown().Transform(s);
+        var md = new MarkdownSharp.Markdown();
+        md.CodeClass = " class=\"prettyprint\"";
+        return md.Transform(s);
     }
 
     private static readonly ContentEncoder TextEncoder = new TextEncoder();
