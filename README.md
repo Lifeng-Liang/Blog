@@ -65,4 +65,43 @@ Markdown 的代码部分，修改了 MarkdownSharp 的源代码，增加了配�
 	}
 
 行内代码效果 `console.log(fib(5));` 也不错。
-	
+
+以上的代码片段在 Github 上是没有高亮效果。
+
+GitHub Flavored Markdown
+----------
+
+Github 支持一些标准 Markdown 不支持的语法，比如Code部分，支持用 \`\`\` 开头和结尾来界定，高亮方式是需要指定语言的，修改了一下 MarkdownSharp，支持了这种界定方式，不过会忽略指定的语言，仍然由 prettify 自行推测：
+
+```c#
+public class User : DbObjectModel<User>
+{
+	public string Name { get; set; }
+	public int Age { get; set; }
+	public bool Actived { get; set; }
+	public DateTime Birthday { get; set; }
+}
+
+static void Main()
+{
+	// Create
+	var u = new User { Name = "tom", Age = 18, Actived = true, Birthday = DateTime.Now };
+	u.Save();
+	// Read
+	var u1 = User.FindById(u.Id);
+	// Update
+	u1.Name = "jerry";
+	u1.Save();
+	// Delete
+	u1.Delete();
+	// Query
+	var ids = from p in User.Table where p.Age > 15 select new {p.Id};
+	var l1 = from p in User.Table where p.Age > 15 && p.Actived select p;
+	var l2 = User.Find(p => p.Age > 15 && p.Actived); // another style of linq
+	var l3 = User.FindBySql("Select * From [User] Where [Age] > 15 And [Actived] = true");
+}
+```
+
+另外，Github 还支持 ~~删除~~ 格式，以及表格，暂时没需求，先不支持了。
+
+这些对于 MarkdownSharp 的修改，回头有空也放到 Github 吧。
