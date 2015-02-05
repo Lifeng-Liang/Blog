@@ -12,7 +12,7 @@ MyBlog
 
 另外，加入了 Markdown 的支持，这个是使用 [MarkdownSharp](https://code.google.com/p/markdownsharp/) 实现的。
 
-页面部分，为了在手机上显示正常，在电脑上显示的反而不协调，也不美观，有时间的话，下一步准备先改一下这里。
+页面部分，初步加入了 Bootstrap，目前首页、文章显示页面、列表页面已经基本改完了，剩余还有一些地方需要调整。
 
 其中的 ubb 中 code 部分，是使用 [SyntaxHighlighter](http://alexgorbatchev.com/) 实现的。Markdown 的 code 部分，使用 [prettify](https://code.google.com/p/google-code-prettify/)，ubb 也准备改成这个。
 
@@ -66,7 +66,7 @@ Markdown 的代码部分，修改了 MarkdownSharp 的源代码，增加了配�
 
 行内代码效果 `console.log(fib(5));` 也不错。
 
-以上的代码片段在 Github 上是没有高亮效果。
+以上的代码片段在 Github 上是没有高亮效果的。
 
 GitHub Flavored Markdown
 ----------

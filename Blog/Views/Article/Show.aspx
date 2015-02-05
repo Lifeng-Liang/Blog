@@ -32,37 +32,33 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-<div class="content">
-
-<div class="article_title">
-    <h1><%= Item.Title %></h1>
+<div class="page-header">
+<h1><%= Item.Title %></h1>
 </div>
 
-<div class="article_content">
-    <%= WriteContent() %>
-</div>
-
-<div class="article_footer">
-    <%= Item.CreatedOn %> (阅读:<span class="read_count"><%= Item.Statistic.ViewCount %></span>)
-    <br />作者：<%= Item.WriterName %>
-    <%= Item.Reference == null ? "" : "<br/>引用自：" + Item.Reference %>
-    <br />标签：<%= Item.GetTags()%>
+<blockquote class="bs-callout-danger">
+    <p>作者：<%= Item.WriterName %>
+    <%= Item.GetTags("标签：")%></p>
+    <%= Item.Reference == null ? "" : "<div class=\"alert alert-warning\" role=\"alert\">引用自：" + Item.Reference + "</div>" %>
     <%
         if (this.IsCurUserOrAdmin(Item.User))
         {
-            Response.Write("<br />");
             Response.Write(LinkTo<ArticleController>(p => p.Edit(Item.Id)).Title("编辑"));
         }
     %>
-</div>
+    <footer><%= Item.CreatedOn %> (阅读:<span class="label label-info"><%= Item.Statistic.ViewCount %></span>)</footer>
+</blockquote>
+
+<%= WriteContent() %>
+
+<hr />
 
 <a id="comment" name="comment"></a>
 <% if (Item.Statistic.CommentsCount > 0) {
       foreach (var comment in Item.Comments) {
 %>
-<div class="comment_title">
-    <%= comment.WriterName %> <%= comment.SavedOn %>
-    <div class="comment_action">
+<div class="panel panel-default">
+    <div class="panel-heading"><%= comment.WriterName %> <%= comment.SavedOn %>
     <%
         if (this.IsCurUserOrAdmin(comment.User))
         {
@@ -70,30 +66,33 @@
         }
     %>
     </div>
-</div>
-<div class="comment_content">
-    <%= comment.Content %>
+    <div class="panel-body">
+    	<p><%= comment.Content %></p>
+    </div>
 </div>
 <% } } %>
 
-<div class="comment_input">
-    <a id="comment_input" name="comment_input"></a>
-    <form action="<%= UrlTo<CommentController>(p => p.Create(Item.Id)) %>" method="post">
-      <p><label for="comment_writer">Writer</label><br />
+<hr />
+
+<a id="comment_input" name="comment_input"></a>
+<form action="<%= UrlTo<CommentController>(p => p.Create(Item.Id)) %>" method="post">
+    <div class="form-group">
+        <label for="comment_writer">Writer</label>
         <% if (User == null) { %>
-          <input id="comment_writer" name="comment[writer]" type="text" maxlength="50" size="50" value="<%=Flash["Writer"]%>" />
+            <input id="comment_writer" name="comment[writer]" type="text" class="form-control" maxlength="50" size="50" value="<%=Flash["Writer"]%>" />
         <% } else { %>
-          <input id="comment_writer" name="comment[writer]" type="text" maxlength="50" size="50" value="<%= User.ShowName.ToHtml() %>" disabled="disabled" />
+            <input id="comment_writer" name="comment[writer]" type="text" class="form-control" maxlength="50" size="50" value="<%= User.ShowName.ToHtml() %>" disabled="disabled" />
         <% } %>
-      </p>
-      <p><label for="comment_content">Content</label><br /><textarea id="comment_content" name="comment[content]" cols="50" rows="5"><%= Flash["Content"] %></textarea></p>
-      <input name="commit" type="submit" value="提交" />
-    </form>
-</div>
+    </div>
+    <div class="form-group">
+        <label for="comment_content">Content</label>
+        <textarea id="comment_content" name="comment[content]" class="form-control" cols="50" rows="5"><%= Flash["Content"] %></textarea>
+    </div>
+    <button name="commit" type="submit" class="btn btn-default">提交</button>
+</form>
 
 <p style="color: Green"><%= Flash.Notice %></p><p style="color: Red"><%= Flash.Warning %></p>
 
-</div>
 <% if(Item.Format == ArticleFormat.Markdown) { %>
 <script type="text/javascript">prettyPrint();</script>
 <% } %>

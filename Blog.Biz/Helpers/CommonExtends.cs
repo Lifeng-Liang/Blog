@@ -168,7 +168,7 @@ public static class CommonExtends
         return false;
     }
 
-    public static string GetTags(this Article article)
+    public static string GetTags(this Article article, string title = "")
     {
         var sb = new StringBuilder();
         foreach (var cross in article.Cross)
@@ -180,7 +180,8 @@ public static class CommonExtends
         {
             sb.Length -= 2;
         }
-        return sb.ToString();
+        if (sb.Length == 0) return "";
+        return title + sb.ToString();
     }
 
     public static string GetDescription(this Article article)

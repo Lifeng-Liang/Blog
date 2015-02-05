@@ -10,10 +10,10 @@
 
 <div class="content">
 
-<%= LinkTo<ManageController>(p => p.RunSql()).Title("运行SQL语句") %><br />
-<%= LinkTo<ManageController>(p => p.Memory()).Title("查询内存占用") %><br />
-<%= LinkTo<ManageController>(p => p.Backup()).Title("备份数据库") %><br />
-<%= LinkTo<UserController>(p => p.List(null, null)).Title("用户管理") %><br />
+<p><%= LinkTo<ManageController>(p => p.RunSql()).Title("运行SQL语句") %></p>
+<p><%= LinkTo<ManageController>(p => p.Memory()).Title("查询内存占用") %></p>
+<p><%= LinkTo<ManageController>(p => p.Backup()).Title("备份数据库") %></p>
+<p><%= LinkTo<UserController>(p => p.List(null, null)).Title("用户管理") %></p>
 
 <p style="color: green;"><%= Flash.Notice %></p>
 <p style="color: red;"><%= Flash.Warning %></p>

@@ -1,71 +1,125 @@
 ﻿<%@ Master Language="C#"  Inherits="Leafing.Web.Mvc.MasterPageBase" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <script runat="server">
     private readonly Category _root = Category.FindById(1);
 
     private void WriteLink(string link)
     {
-        Response.Write("            ");
+        Response.Write("<li>");
         Response.Write(link);
-        Response.Write(" | \r\n");
+        Response.Write("</li>\n");
     }
 </script>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head runat="server">
     <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
     <link href="~/styles/scaffolding.css" type="text/css" rel="Stylesheet" />
-    <link href="~/styles/blog.css" type="text/css" rel="Stylesheet" />
+    -->
+    <!-- Bootstrap -->
+    <link href="~/styles/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/styles/bootstrap-theme.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <div class="banner">
-    </div>
-    <div class="header">
-        <div id="navigator">
-            <%= LinkTo<ArticleController>().Title("首页") %> | 
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><%= Blog.Biz.BlogSettings.BlogName %></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><%= LinkTo<ArticleController>().Title("首页") %></li>
             <%
                 foreach (var category in _root.Children)
                 {
                     WriteLink(LinkTo<CategoryController>(p => p.Show(category.UrlName, null)).Title(category.Name));
                 }
             %>
-        </div>
-        <div id="oprator">
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+                <form id="form1" action="<%= UrlTo<SearchController>(p => p.Article(null)) %>" method="post" class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input id="q" name="q" type="text" maxlength="30" class="form-control" placeholder="Search"/>
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+            </li>
             <%
-                var u = this.GetLoginUser();
-                if(u == null)
-                {
-                    WriteLink(LinkTo<UserController>(p => p.Register()).Title("注册"));
-                    WriteLink(LinkTo<UserController>(p => p.Login()).Title("登录"));
-                }
-                else
-                {
-                    Response.Write("            [");
-                    Response.Write(LinkTo<UserController>(p => p.Profile()).Title(u.ShowName.ToHtml()));
-                    Response.Write("] | \r\n");
-                    if (u.Role == UserRole.Administrator)
-                    {
-                        WriteLink(LinkTo<ArticleController>(p => p.New()).Title("新文章"));
-                        WriteLink(LinkTo<ManageController>(p => p.List()).Title("管理"));
-                    }
-                    WriteLink(LinkTo <UserController>(p => p.Logout(null)).Title("退出"));
-                }
+                WriteLink(LinkTo<CommentController>(p => p.List(null)).Title("评论"));
+                WriteLink(LinkTo<RssController>(p => p.Article()).Title("订阅"));
             %>
-            <%= LinkTo<CommentController>(p => p.List(null)).Title("评论") %> | 
-            <%= LinkTo<RssController>(p => p.Article()).Title("订阅") %> | 
-            <%= LinkTo<ArticleController>(p => p.Show("about")).Title("关于") %>
-        </div>
-    </div>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">帐号 <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <%
+                    var u = this.GetLoginUser();
+                    if(u == null)
+                    {
+                        WriteLink(LinkTo<UserController>(p => p.Register()).Title("注册"));
+                        WriteLink(LinkTo<UserController>(p => p.Login()).Title("登录"));
+                    }
+                    else
+                    {
+                        WriteLink(LinkTo<UserController>(p => p.Profile()).Title(u.ShowName.ToHtml()));
+                        Response.Write("<li class=\"divider\"></li>");
+                        if (u.Role == UserRole.Administrator)
+                        {
+                            WriteLink(LinkTo<ArticleController>(p => p.New()).Title("新文章"));
+                            WriteLink(LinkTo<ManageController>(p => p.List()).Title("管理"));
+                        }
+                        WriteLink(LinkTo <UserController>(p => p.Logout(null)).Title("退出"));
+                    }
+                    Response.Write("<li class=\"divider\"></li>");
+                    WriteLink(LinkTo<ArticleController>(p => p.Show("about")).Title("关于"));
+                %>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
     <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
     </asp:ContentPlaceHolder>
-    <div class="footer">
-        版权所有 &copy; <a href="http://llf.hanzify.org"><%= Blog.Biz.BlogSettings.BlogName %></a> <%= Blog.Biz.Helpers.CommonHelper.Copyright %><br />
-        Powered By <a href="http://dbentry.codeplex.com/">DbEntry.Net</a> :)
     </div>
+
+    <footer class="footer">
+      <div class="container">
+        <hr />
+        <p class="text-center">版权所有 &copy; <a href="http://llf.hanzify.org"><%= Blog.Biz.BlogSettings.BlogName %></a> <%= Blog.Biz.Helpers.CommonHelper.Copyright %></p>
+        <p class="text-center">Powered By <a href="http://dbentry.codeplex.com/">DbEntry.Net</a> :)</p>
+      </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="<%= Blog.Biz.BlogSettings.SiteBase %>/scripts/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="<%= Blog.Biz.BlogSettings.SiteBase %>/scripts/bootstrap.min.js"></script>
 </body>
 </html>
