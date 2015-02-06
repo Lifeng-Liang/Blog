@@ -109,13 +109,17 @@
     <Content Include="prettify\prettify.js" />
     <Content Include="prettify\run_prettify.js" />
     <Content Include="scripts\AC_RunActiveContent.js" />
+    <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\clipboard.swf" />
     <Content Include="scripts\common.js" />
     <Content Include="scripts\jquery-1.2.6-vsdoc.js" />
     <Content Include="scripts\jquery-1.2.6.js" />
     <Content Include="scripts\jquery.layout.js" />
+    <Content Include="scripts\jquery.min.js" />
     <Content Include="scripts\shBrushAll.js" />
     <Content Include="scripts\shCore.js" />
+    <Content Include="styles\bootstrap-theme.min.css" />
+    <Content Include="styles\bootstrap.min.css" />
     <Content Include="styles\help.png" />
     <Content Include="styles\magnifier.png" />
     <Content Include="styles\page_white_code.png" />

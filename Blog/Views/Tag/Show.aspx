@@ -14,27 +14,21 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-<p></p>
+<h2>标签：<%= Tag.Name %></h2>
+<hr />
 
-<div class="category_list">
-<table>
-<tr>
-  <th class="table_title">标签：<%= Tag.Name %></th>
-</tr>
-<% foreach (var o in ItemList.List) { %>
-<tr>
-  <td class="table_subtitle">
-    <%= LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title(o.Title) %></td>
-</tr>
-<tr>
-  <td class="table_content"><%= o.Summary %></td>
-</tr>
-<tr>
-  <td class="table_subfooter">(<%= o.CreatedOn.ToString("yyyy-MM-dd") %>) [<%= LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title("查看全文") %>]</td>
-</tr>
+<% foreach (var o in ItemList.List)
+   { %>
+<div class="panel panel-default">
+    <div class="panel-heading"><%= LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title(o.Title) %></div>
+    <div class="panel-body">
+    	<p><%= o.Summary %></p>
+    	<p class="text-right">(<%= o.CreatedOn.ToString("yyyy-MM-dd") %>) [<%= LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title("查看全文") %>]</p>
+    </div>
+</div>
 <% } %>
-<tr>
-  <td class="table_footer">
+
+<p class="text-right">
 <%
    foreach (var i in ItemList.PageLinks(ListStyle.Hybird, 11))
    {
@@ -44,11 +38,6 @@
            : LinkTo<TagController>(p => p.Show(Tag.Name, i)).Title(i.ToString()));
    }
 %>
-  </td>
-</tr>
-</table>
-</div>
-
-<br />
+</p>
 
 </asp:Content>
