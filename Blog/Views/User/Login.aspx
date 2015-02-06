@@ -1,42 +1,6 @@
 ﻿<%@ Page Title="登录" Language="C#" MasterPageFile="~/main.master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-<style type="text/css">
-.title
-{
-	text-align: right;
-	font-weight: bold;
-}
-.inputbox
-{
-	text-align: left;
-}
-.ErrMsg
-{
-    color: red;
-	font-weight: bold;
-}
-#center
-{
-    height:450px;
-    width:auto;
-    text-align:center;
-    background-color:#f0f0f0;
-    padding-top:100px;
-    margin-left:20px;
-    margin-right:20px;
-}
-#mainPanel
-{
-    margin:0 auto;
-	background: url(../images/bg.jpg) no-repeat;
-    text-align: center;
-    width:480px;
-    height: 272px;
-    background-color:#f2f8ff;
-    border:solid 1px #ccccff;
-}
-    </style>
     <script type="text/javascript">
         window.onload = function() {
         var c = document.getElementById("email");
@@ -46,17 +10,31 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <form id="form1" action="<%= UrlTo<UserController>(p => p.Login()) %>" method="post">
-        <div id="center">
-        <div id="mainPanel">
-            <table border="0" style="margin-left:130px; margin-right:auto; margin-top:140px">
-                <tr><td class="title">Email:</td><td class="inputbox"><input id="email" name="email" size="20" type="text" maxlength="128" /></td></tr>
-                <tr><td class="title">Password:</td><td class="inputbox"><input id="password" name="password" size="20" type="password" maxlength="99" /></td></tr>
-                <tr><td class="title"></td><td class="inputbox"><input id="rememberme" name="rememberme" type="checkbox" /><label for="rememberme">Remember Me</label></td></tr>
-                <tr><td colspan="2" align="center"><input name="commit" type="submit" value=" 登录 " /></td></tr>
-            </table>
+    <div class="col-md-2">.</div>
+    <div class="col-md-8">
+    <h2 class="text-center">登录</h2>
+    <hr />
+    <form id="form1" action="<%= UrlTo<UserController>(p => p.Login()) %>" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email:</label>
+            <div class="col-sm-10">
+            <input id="email" name="email" class="form-control" size="20" type="text" maxlength="128" />
+            </div>
         </div>
-        <p style="color: Red"><%= Flash.Warning %></p><p style="color: Green"><%= Flash.Notice %></p>
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Password:</label>
+            <div class="col-sm-10">
+            <input id="password" name="password" class="form-control" size="20" type="password" maxlength="99" />
+            </div>
         </div>
+        <div class="form-group"><div class="col-sm-offset-2 col-sm-10"><div class="checkbox">
+            <label><input type="checkbox" id="rememberme" name="rememberme" /> Remember me </label>
+        </div></div></div>
+        <div class="form-group"><div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">登录</button>
+        </div></div>
     </form>
+    <% this.RenderFlash(); %>
+    </div>
+    <div class="col-md-2">.</div>
 </asp:Content>

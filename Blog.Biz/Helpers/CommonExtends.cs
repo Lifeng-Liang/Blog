@@ -55,6 +55,26 @@ public static class CommonExtends
         }
     }
 
+    public static void RenderFlash(this PageBase page)
+    {
+        var r = page.Response;
+        RenderText(r, page.Flash.Tip, "success");
+        RenderText(r, page.Flash.Notice, "info");
+        RenderText(r, page.Flash.Warning, "danger");
+    }
+
+    private static void RenderText(HttpResponse r, string text, string className)
+    {
+        if (!text.LikeNull())
+        {
+            r.Write("<div class=\"alert alert-");
+            r.Write(className);
+            r.Write("\" role=\"alert\">");
+            r.Write(text);
+            r.Write("</div>");
+        }
+    }
+
     private static User GetLoginUser()
     {
         var c = CookiesHandler.Instance[BlogSettings.LoginCookie];
