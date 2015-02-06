@@ -12,7 +12,7 @@ MyBlog
 
 另外，加入了 Markdown 的支持，这个是使用 [MarkdownSharp](https://code.google.com/p/markdownsharp/) 实现的。
 
-页面部分，初步加入了 Bootstrap，目前首页、文章显示页面、列表页面已经基本改完了，剩余还有一些地方需要调整。
+页面部分，加入了 Bootstrap，目前普通用户可见部分基本改完了，管理员可见部分还没有改。
 
 其中的 ubb 中 code 部分，是使用 [SyntaxHighlighter](http://alexgorbatchev.com/) 实现的。Markdown 的 code 部分，使用 [prettify](https://code.google.com/p/google-code-prettify/)，ubb 也准备改成这个。
 
