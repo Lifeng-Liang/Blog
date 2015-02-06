@@ -9,3 +9,4 @@
 /TestResults
 /*.suo
 /Blog/*.log
+/Blog/Properties/PublishProfiles

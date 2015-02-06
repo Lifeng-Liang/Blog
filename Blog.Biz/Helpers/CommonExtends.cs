@@ -10,6 +10,7 @@ using Blog.Biz.Models;
 using Leafing.Web;
 using Leafing.Web.Mvc.Core;
 using Blog.Biz;
+using Blog.Biz.Controllers;
 
 public static class CommonExtends
 {
@@ -31,6 +32,27 @@ public static class CommonExtends
     public static User GetLoginUser(this PageBase page)
     {
         return GetLoginUser();
+    }
+
+    public static void RenderArticleList(this PageBase page, List<Article> list)
+    {
+        var r = page.Response;
+        foreach (var o in list)
+        {
+            r.Write("<div class=\"panel panel-default\">\n    <div class=\"panel-heading\">");
+            r.Write(LinkHelper.LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title(o.Title));
+            r.Write("</div>\n    <div class=\"panel-body\">    	<p>");
+            r.Write(o.Summary);
+            r.Write("</p>\n    	<p class=\"text-right\">(");
+            r.Write(o.CreatedOn.ToString("yyyy-MM-dd"));
+            r.Write(", 阅读:<span class=\"label label-info\">");
+            r.Write(o.Statistic.ViewCount);
+            r.Write("</span>, 评论:<span class=\"label label-info\">");
+            r.Write(o.Statistic.CommentsCount);
+            r.Write("</span>) [");
+            r.Write(LinkHelper.LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title("查看全文"));
+            r.Write("]</p>\n    </div>\n</div>\n");
+        }
     }
 
     private static User GetLoginUser()

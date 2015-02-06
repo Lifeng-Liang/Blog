@@ -8,15 +8,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-<% foreach (var o in ItemList.List) { %>
-<div class="panel panel-default">
-    <div class="panel-heading"><%= LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title(o.Title) %></div>
-    <div class="panel-body">
-    	<p><%= o.Summary %></p>
-    	<p class="text-right">(<%= o.CreatedOn.ToString("yyyy-MM-dd") %>, 阅读:<span class="label label-info"><%= o.Statistic.ViewCount %></span>, 评论:<span class="comment_count"><%= o.Statistic.CommentsCount %></span>) [<%= LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title("查看全文") %>]</p>
-    </div>
-</div>
-<% } %>
+<% this.RenderArticleList(ItemList.List); %>
 
 <p class="text-right">
 <%
