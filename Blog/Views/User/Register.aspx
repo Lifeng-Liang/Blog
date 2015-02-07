@@ -9,11 +9,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <script type="text/javascript">
-        window.onload = function() {
-            var c = document.getElementById("email");
-            c.focus();
-            c.select();
-        }
+        $(document).ready(function () { $("#email").focus().select(); });
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
