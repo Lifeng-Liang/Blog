@@ -32,7 +32,7 @@
 %>
 </p>
 
-<p style="color: Red"><%= Flash.Warning %></p>
+<% this.RenderFlash(); %>
 
 <br />
 

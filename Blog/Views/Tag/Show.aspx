@@ -23,7 +23,7 @@
     <div class="panel-heading"><%= LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title(o.Title) %></div>
     <div class="panel-body">
     	<p><%= o.Summary %></p>
-    	<p class="text-right">(<%= o.CreatedOn.ToString("yyyy-MM-dd") %>) [<%= LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title("查看全文") %>]</p>
+    	<p class="text-right">(<%= o.HowLong() %>) [<%= LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title("查看全文") %>]</p>
     </div>
 </div>
 <% } %>

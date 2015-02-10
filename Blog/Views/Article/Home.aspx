@@ -12,7 +12,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-<p style="color: Green; margin-left:20px;"><%= Flash.Notice %></p>
+<% this.RenderFlash(); %>
 
 <h2>最新更新</h2>
 <hr />
@@ -41,7 +41,7 @@
             <% foreach (var o in ReadRankingList) { %>
                 <li>
                 <%= LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title(o.Title) %>
-                (<span class="label label-info"><%= o.ViewCount %></span>)
+                (<span class="text-danger"><%= o.ViewCount %></span>)
                 </li>
             <% } %>
         </ul>
@@ -54,7 +54,7 @@
             <% foreach (var o in CommentRankingList) { %>
                 <li>
                 <%= LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title(o.Title) %>
-                (<span class="label label-info"><%= o.CommentsCount %></span>)
+                (<span class="text-danger"><%= o.CommentsCount %></span>)
                 </li>
             <% } %>
         </ul>

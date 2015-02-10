@@ -46,7 +46,7 @@
             Response.Write(LinkTo<ArticleController>(p => p.Edit(Item.Id)).Title("编辑"));
         }
     %>
-    <footer><%= Item.CreatedOn %> (阅读:<span class="label label-info"><%= Item.Statistic.ViewCount %></span>)</footer>
+    <footer><%= Item.HowLong() %> (阅读:<span class="text-danger"><%= Item.Statistic.ViewCount %></span>)</footer>
 </blockquote>
 
 <%= WriteContent() %>
@@ -91,7 +91,7 @@
     <button name="commit" type="submit" class="btn btn-default">提交</button>
 </form>
 
-<p style="color: Green"><%= Flash.Notice %></p><p style="color: Red"><%= Flash.Warning %></p>
+<% this.RenderFlash(); %>
 
 <% if(Item.Format == ArticleFormat.Markdown) { %>
 <script type="text/javascript">prettyPrint();</script>

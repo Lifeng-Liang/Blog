@@ -11,6 +11,8 @@ using Leafing.Web;
 using Leafing.Web.Mvc.Core;
 using Blog.Biz;
 using Blog.Biz.Controllers;
+using Leafing.Core;
+using System;
 
 public static class CommonExtends
 {
@@ -34,6 +36,31 @@ public static class CommonExtends
         return GetLoginUser();
     }
 
+    public static string HowLong(this Article o)
+    {
+        return HowLong(o.CreatedOn);
+    }
+
+    public static string HowLong(this ArticleTag o)
+    {
+        return HowLong(o.CreatedOn);
+    }
+
+    public static string HowLong(DateTime dt)
+    {
+        var diff = Util.Now - dt;
+        var days = (int)diff.TotalDays;
+        if (days > 0)
+        {
+            return days + "天前";
+        }
+        if(diff.Hours > 0)
+        {
+            return string.Format("{0}小时{1}分钟前", diff.Hours, diff.Minutes);
+        }
+        return diff.Minutes + "分钟前";
+    }
+
     public static void RenderArticleList(this PageBase page, List<Article> list)
     {
         var r = page.Response;
@@ -44,10 +71,10 @@ public static class CommonExtends
             r.Write("</div>\n    <div class=\"panel-body\">    	<p>");
             r.Write(o.Summary);
             r.Write("</p>\n    	<p class=\"text-right\">(");
-            r.Write(o.CreatedOn.ToString("yyyy-MM-dd"));
-            r.Write(", 阅读:<span class=\"label label-info\">");
+            r.Write(o.HowLong());
+            r.Write(", 阅读:<span class=\"text-danger\">");
             r.Write(o.Statistic.ViewCount);
-            r.Write("</span>, 评论:<span class=\"label label-info\">");
+            r.Write("</span>, 评论:<span class=\"text-danger\">");
             r.Write(o.Statistic.CommentsCount);
             r.Write("</span>) [");
             r.Write(LinkHelper.LinkTo<ArticleController>(p => p.Show(o.UrlName)).Title("查看全文"));

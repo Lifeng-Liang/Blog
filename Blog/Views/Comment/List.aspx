@@ -10,7 +10,7 @@
 
 <div class="content">
 
-<p style="color: Green"><%= Flash.Notice %></p>
+<% this.RenderFlash(); %>
 
 <h2>评论列表</h2>
 <p><%= LinkTo<RssController>(p => p.Comment()).Title("订阅评论") %></p>
