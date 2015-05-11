@@ -41,6 +41,10 @@ namespace Blog.Biz.Controllers
                 article.Statistic.CommentsCount = article.Comments.Count;
             }
             article.Statistic.Save();
+            if(article.Format == ArticleFormat.Link)
+            {
+                return article.Reference;
+            }
             this.Item = article;
             var login = this.GetLoginUser();
             if(login != null)

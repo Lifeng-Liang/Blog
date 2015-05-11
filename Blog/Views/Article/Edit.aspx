@@ -8,7 +8,7 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        formatSelected = new string[3];
+        formatSelected = new string[4];
         formatSelected[(int)Item.Format] = " selected=\"selected\"";
     }
 </script>
@@ -34,7 +34,7 @@
         Response.Write(options.ToString());
     %>
     </select><script type="text/javascript">document.getElementById("article_category").value = '<%= Item.Category.Id %>';</script>
-    <label for="article_format">格式：</label><select id="article_format" name="article[format]"><option value="Html"<%= formatSelected[0] %>>Html</option><option value="Ubb"<%= formatSelected[1] %>>Ubb</option><option value="Markdown"<%= formatSelected[2] %>>Markdown</option></select><script type="text/javascript">                                                                                                                                                                             document.getElementById("article_format").value = '<%= Item.Format %>';</script>
+    <label for="article_format">格式：</label><select id="article_format" name="article[format]"><option value="Html"<%= formatSelected[0] %>>Html</option><option value="Ubb"<%= formatSelected[1] %>>Ubb</option><option value="Markdown"<%= formatSelected[2] %>>Markdown</option><option value="Link"<%= formatSelected[3] %>>Link</option></select><script type="text/javascript">                                                                                                                                                                             document.getElementById("article_format").value = '<%= Item.Format %>';</script>
     <label for="article_recommend">推荐：</label><input id="article_recommend" name="article[recommend]" type="checkbox" <%= Item.Recommend ? "checked" : "" %> />
     <label for="article_writer">作者：</label><input id="article_writer" name="article[writer]" type="text" maxlength="50" size="20" value="<%= Item.Writer %>" />
   </p>

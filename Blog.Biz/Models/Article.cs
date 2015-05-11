@@ -11,6 +11,7 @@ namespace Blog.Biz.Models
         Html,
         Ubb,
         Markdown,
+        Link,
     }
 
     [Cacheable, SoftDelete]
@@ -130,6 +131,10 @@ namespace Blog.Biz.Models
                         s = StringHelper.ProcessSymbol(Content, "[", "]", text => "").ToHtml();
                         break;
                     case ArticleFormat.Markdown:
+                        s = Content.Replace("\r\n", "\n").Replace("\n\n", "\n");
+                        s = StringHelper.ProcessSymbol(s, "<", ">", text => "");
+                        break;
+                    case ArticleFormat.Link:
                         s = Content.Replace("\r\n", "\n").Replace("\n\n", "\n");
                         s = StringHelper.ProcessSymbol(s, "<", ">", text => "");
                         break;

@@ -26,7 +26,7 @@
         Response.Write(options.ToString());
     %>
     </select>
-    <label for="article_format">格式：</label><select id="article_format" name="article[format]"><option value="Html">Html</option><option value="Ubb">Ubb</option><option value="Markdown" selected="selected">Markdown</option></select>
+    <label for="article_format">格式：</label><select id="article_format" name="article[format]"><option value="Html">Html</option><option value="Ubb">Ubb</option><option value="Markdown" selected="selected">Markdown</option><option value="Link">Link</option></select>
     <label for="article_recommend">推荐：</label><input id="article_recommend" name="article[recommend]" type="checkbox" />
     <label for="article_writer">作者：</label><input id="article_writer" name="article[writer]" type="text" maxlength="50" size="20" />
   </p>
