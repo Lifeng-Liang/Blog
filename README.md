@@ -33,6 +33,17 @@ rss 生成部分，站点部分，在页面里是硬编码为 http://llf.hanzify
 
 为调试方便，log 配置为记录所有的 sql 语句，这会导致 log 文件迅速增长，如不需要，可以删除配置文件中 SqlLogRecorder 那一行。
 
+MacOS/Linux
+----------
+
+在 MacOS 上运行本程序，需要安装 Mono 和 Xarmarin Studio，还需要把 SiteBase 设置成空字符串，另外，需要把 SQLite 的配置改成使用 Mono.Data.Sqlite：
+
+````xml
+<add key="DevelopmentDataBase" value="Mono.Data.Sqlite.SqliteFactory, Mono.Data.Sqlite, Version=4.0.0.0, Culture=neutral, PublicKeyyToken=0738eb9f132ed756"/>
+````
+
+Linux 应该也是一样的，只是我还没有在 Linux 下测试过。
+
 使用
 ----------
 
