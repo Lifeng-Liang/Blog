@@ -10,3 +10,5 @@
 /*.suo
 /Blog/*.log
 /Blog/Properties/PublishProfiles
+
+Blog.userprefs
